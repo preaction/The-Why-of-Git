@@ -662,6 +662,196 @@ $ git log --oneline --graph --all --decorate
 
 ------
 
+# Remotes
+
+---
+
+# Are all local!
+
+
+------
+
+# Enter Bob
+
+```
+$ git clone <origin>
+$ echo "Bob was here" >> README
+$ git add README
+$ git commit -m'Bob was here!'
+$ git push origin master
+```
+
+---
+
+# Back to Us
+
+---
+
+# Nothing has changed!
+
+---
+
+# Unsuspecting Commit!
+```
+$ echo 'New employee, Bob!' >> index.html
+$ git add index.html
+$ git commit -m'welcome new employee, Bob'
+[master fe886eb] welcome new employee, Bob
+ 1 file changed, 1 insertion(+)
+ ```
+
+---
+
+```
+$ git push origin master
+To remotes/origin
+ ! [rejected]        master -> master (fetch first)
+error: failed to push some refs to 'remotes/origin'
+hint: Updates were rejected because the remote contains work that you do
+hint: not have locally. This is usually caused by another repository pushing
+hint: to the same ref. You may want to first integrate the remote changes
+hint: (e.g., 'git pull ...') before pushing again.
+hint: See the 'Note about fast-forwards' in 'git push --help' for details.
+```
+
+# !!!
+
+------
+
+# `fetch`
+
+---
+
+# Fetches remote objects
+
+---
+
+```
++ git fetch origin
+remote: Counting objects: 3, done.
+remote: Compressing objects: 100% (2/2), done.
+remote: Total 3 (delta 0), reused 0 (delta 0)
+Unpacking objects: 100% (3/3), done.
+From remotes/origin
+ * [new branch]      master     -> origin/master
+ * [new branch]      website    -> origin/website
+```
+---
+
+# Content-Addressable
+
+---
+
+```
+$ git log --oneline --graph --all --decorate --remotes
+* 6a7ded8 (HEAD -> master) welcome new employee, Bob
+| * 017ddbb (origin/master) Bob was here!
+|/
+* 4d7165f (origin/website, website) replace old logo with new logo
+* 5f33c56 add new logo image
+* e1e56ae add fizz and buzz
+*   a0de8f4 re-deploy website
+|\
+| * f024478 add more content
+* |   6b9512d deploy website
+|\ \
+| |/
+| * 488a471 add content to index.html
+| * 191b48d add initial website
+* | f8b0104 mention our website
+|/
+* 4004f06 add README file
+* 56d337a add files/ directory
+* f90bb72 initial commit
+```
+
+---
+
+# New Refs
+```
+6a7ded80958f19529a73060f87052f05cf06be8c refs/heads/master
+4d7165ff101e63397d95288429e41c89de5a716a refs/heads/website
+017ddbbaf30675154ebb48071a6bcf9f2886f2c0 refs/remotes/origin/master
+4d7165ff101e63397d95288429e41c89de5a716a refs/remotes/origin/website
+```
+
+---
+
+# `merge` or `rebase`
+```
+$ git rebase origin/master
+First, rewinding head to replay your work on top of it...
+Applying: welcome new employee, Bob
+```
+
+---
+
+# `pull` == `fetch` + `merge`
+
+---
+
+# `pull --rebase` == `fetch` + `rebase`
+
+---
+
+```
+$ git push origin master
+Counting objects: 3, done.
+Delta compression using up to 8 threads.
+Compressing objects: 100% (3/3), done.
+Writing objects: 100% (3/3), 316 bytes | 0 bytes/s, done.
+Total 3 (delta 1), reused 0 (delta 0)
+To remotes/origin
+   017ddbb..186ffed  master -> master
+```
+
+---
+
+```
++ git log --oneline --graph --all --decorate --remotes
+* 186ffed (HEAD -> master, origin/master) welcome new employee, Bob
+* 017ddbb Bob was here!
+* 4d7165f (origin/website, website) replace old logo with new logo
+* 5f33c56 add new logo image
+* e1e56ae add fizz and buzz
+*   a0de8f4 re-deploy website
+|\
+| * f024478 add more content
+* |   6b9512d deploy website
+|\ \
+| |/
+| * 488a471 add content to index.html
+| * 191b48d add initial website
+* | f8b0104 mention our website
+|/
+* 4004f06 add README file
+* 56d337a add files/ directory
+* f90bb72 initial commit
+```
+
+---
+
+```
+$ git show-ref
+186ffedd69e7403b3613b38ec90ca697f316a243 refs/heads/master
+4d7165ff101e63397d95288429e41c89de5a716a refs/heads/website
+186ffedd69e7403b3613b38ec90ca697f316a243 refs/remotes/origin/master
+4d7165ff101e63397d95288429e41c89de5a716a refs/remotes/origin/website
+```
+
+---
+
+# Everything's Local!
+
+---
+
+# `push` must be safe
+## Fast-forward
+
+------
+
+# Why?
+
 ------
 
 # It's Over!

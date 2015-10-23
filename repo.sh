@@ -100,6 +100,35 @@ git merge website
 
 git log --oneline --graph --all --decorate
 
+mkdir remotes
+git clone --bare . remotes/origin
+git remote add origin remotes/origin
+
+git clone remotes/origin remotes/bob
+
+cd remotes/bob
+echo "Bob was here" >> README
+git add README
+git commit -m'Bob was here!'
+git push origin master
+
+cd ../..
+
+echo "New employee, Bob!" >> index.html
+git add index.html
+git commit -m'welcome new employee, Bob'
+git push origin master
+
+
+git fetch origin
+git log --oneline --graph --all --decorate --remotes
+git show-ref
+
+
+git rebase origin/master
+git push origin master
+git log --oneline --graph --all --decorate --remotes
+git show-ref
 
 
 cd $PWD
